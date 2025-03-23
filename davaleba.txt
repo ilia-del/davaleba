@@ -1,0 +1,45 @@
+
+You sent
+Flask 
+
+from flask import Flask, jsonify, render_template
+import random
+
+app = Flask(_name_)
+
+messages = ["გამარჯობა!", "კეთილი იყოს თქვენი მობრძანება!", "სასიამოვნოა თქვენი ნახვა!"]
+
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+@app.route('/message')
+def get_message():
+    return jsonify({"message": random.choice(messages)})
+
+if _name_ == '_main_':
+    app.run(debug=True)
+
+Html
+
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <title>შემთხვევითი ტექსტი</title>
+    <script>
+        function loadMessage() {
+            fetch('/message')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('message').innerText = data.message;
+                });
+        }
+    </script>
+</head>
+<body>
+    <h1>დააწკაპუნე ღილაკზე</h1>
+    <button onclick="loadMessage()">მიიღე ტექსტი</button>
+    <p id="message"></p>
+</body>
+</html
